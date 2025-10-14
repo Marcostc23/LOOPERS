@@ -1,43 +1,44 @@
-/* ====== Estilos base ====== */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  color: #eaeaea;
-  background-color: #0f0f0f;
-  text-align: center;
-  overflow-x: hidden;
-}
-
-/* ====== Fondo animado con gradiente dinámico ====== */
-.fondo-animado {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, #0f0f0f, #121212, #1a0033, #001f1f);
-  background-size: 400% 400%;
-  animation: moverGradiente 12s ease infinite;
-  z-index: -1;
-}
-
-@keyframes moverGradiente {
-  0% {
-    background-position: 0% 50%;
+  /* ====== Estilos base ====== */
+  * {
+    box-sizing: border-box;
   }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #eaeaea;
+    background-color: #0f0f0f;
+    text-align: center;
+    overflow-x: hidden;
 }
 
-/* ====== Menú lateral ====== */
+
+  /* ====== Fondo animado con gradiente dinámico ====== */
+  .fondo-animado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #0f0f0f, #121212, #1a0033, #001f1f);
+    background-size: 400% 400%;
+    animation: moverGradiente 12s ease infinite;
+    z-index: -1;
+  }
+
+  @keyframes moverGradiente {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* ====== Menú lateral ====== */
 .nav-lateral {
   position: fixed;
   top: 0;
@@ -71,7 +72,7 @@ body {
   text-align: center;
 }
 
-.nav-lateral img {
+.nav-lateral img{
   width: 120px;
   margin-bottom: 15px;
   border-radius: 50%;
@@ -125,4 +126,219 @@ body {
 .contenido {
   margin-left: 230px;
   padding: 0 20px;
+}
+
+
+  /* ====== Contenido principal ====== */
+  main {
+    padding: 140px 20px 60px;
+    max-width: 800px;
+    margin: auto;
+    animation: fadeIn 1.2s ease-in-out;
+  }
+
+  h1 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 3em;
+    color: #00ffd1;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px #00ffd1;
+  }
+
+  .eslogan {
+    font-style: italic;
+    color: #7b61ff;
+    margin-bottom: 40px;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+  }
+
+  /* ====== Imagen vinilo ====== */
+  .vinilo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+  }
+
+  .imagen-vinilo {
+    width: 260px;
+    margin: 20px 0;
+    filter: drop-shadow(0 0 15px #00ffd1);
+    animation: girar 10s linear infinite;
+    transition: transform 0.5s ease, filter 0.5s ease;
+  }
+
+  .imagen-vinilo:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 30px #7b61ff);
+  }
+
+  @keyframes girar {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+
+  /* ====== Botón ====== */
+  .boton {
+    display: inline-block;
+    padding: 12px 30px;
+    background: linear-gradient(90deg, #00ffd1, #7b61ff);
+    color: #0f0f0f;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 30px;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 209, 0.4);
+  }
+
+  .boton:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 25px #00ffd1;
+    letter-spacing: 1px;
+  }
+
+.sobre-nosotros {
+  background: radial-gradient(circle at top left, rgba(0,255,209,0.05), rgba(0,0,0,0.8));
+  border: 1px solid rgba(0,255,209,0.2);
+  border-radius: 15px;
+  padding: 50px;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.sobre-nosotros h2 {
+  color: #00ffd1;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 2px;
+}
+
+.sobre-nosotros p {
+  color: #e0e0e0;
+  line-height: 1.8;
+}
+
+.sobre-nosotros img {
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 255, 209, 0.2);
+  transition: transform 0.4s ease;
+}
+
+.sobre-nosotros img:hover {
+  transform: scale(1.03);
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+.btn-play {
+  background-color: #00ffd1;
+  color: #000;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-play:hover {
+  background-color: #00c9a9;
+  transform: scale(1.05);
+}
+.player-container iframe {
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 255, 209, 0.2);
+}
+/* ====== Precio Vinilo ====== */
+.precio-vinilo h2 {
+  color: #00ffd1;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.detalle-precio {
+  font-size: 1.4em;
+  color: #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.detalle-precio .precio {
+  color: #7b61ff;
+  font-weight: bold;
+  font-size: 1.8em;
+  text-shadow: 0 0 15px #7b61ff;
+}
+
+.btn-comprar {
+  display: inline-block;
+  padding: 14px 36px;
+  background: linear-gradient(90deg, #00ffd1, #7b61ff);
+  color: #0f0f0f;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 209, 0.5);
+}
+
+.btn-comprar:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px #00ffd1;
+  letter-spacing: 1px;
+}
+
+/* Imagen vinilo girando en la sección de precio */
+.imagen-vinilo-precio {
+  width: 180px;
+  animation: girar 10s linear infinite;
+  filter: drop-shadow(0 0 15px #00ffd1);
+  border-radius: 10px;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.imagen-vinilo-precio:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 30px #7b61ff);
+}
+
+.sobre-nosotros-tienda {
+  max-width: 1100px; /* Limita el ancho */
+  margin: 0 auto;   /* Centra la sección */
+  background: radial-gradient(circle at top left, rgba(123,97,255,0.05), rgba(0,0,0,0.8));
+  border: 1px solid rgba(123,97,255,0.2);
+  border-radius: 15px;
+  padding: 40px 30px; /* Menos padding horizontal */
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.sobre-nosotros-tienda h2 {
+  color: #7b61ff;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 2px;
+}
+
+.sobre-nosotros-tienda p {
+  color: #e0e0e0;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.sobre-nosotros-tienda img.logo-tienda {
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(123,97,255,0.2);
+  transition: transform 0.4s ease;
+  width: 100%;
+}
+
+.sobre-nosotros-tienda img.logo-tienda:hover {
+  transform: scale(1.03);
 }

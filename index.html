@@ -13,35 +13,154 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
   </head>
   <body>
     <!-- Fondo animado -->
-    <div class="fondo-animado"></div>
+  <div class="fondo-animado"></div>
 
-    <!-- Fondo animado -->
-    <div class="fondo-animado"></div>
+  <!-- Fondo animado -->
+  <div class="fondo-animado"></div>
 
-    <!-- Menú lateral -->
-    <nav class="nav-lateral">
-      <div class="logo">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg"
-          alt="Vinilo"
-        />
-        RetroGroove
+  <!-- Menú lateral -->
+  <nav class="nav-lateral">
+    <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg" alt="Vinilo" />
+        RetroGroove</div>
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Catálogo</a></li>
+      <li><a href="#">Ofertas</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- Contenido principal -->
+  <div class="contenido">
+    <main>
+      <h1>RetroGroove Records</h1>
+      <p class="eslogan">"Donde el vinilo nunca pasa de moda"</p>
+
+      <div class="vinilo-container">
+        <img src="imgs/vinilo2.png" alt="Vinilo" class="imagen-vinilo" />
       </div>
-      <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Catálogo</a></li>
-        <li><a href="#">Ofertas</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </nav>
+
+      <a href="#" class="boton">Ver catálogo</a>
+      
+
+
+      <section class="sobre-nosotros container-fluid my-5 px-5">
+        <div class="row align-items-center justify-content-between">
+          <!-- Texto -->
+          <div class="col-md-7 texto">
+            <h2>Anonim 3</h2>
+            <p>
+              <strong>Anonim 3</strong> Volumen histórico de 1998 de Radio Anonim, un clásico 
+              imprescindible de la música makinera de aquella época. <p>Este volumen, junto a 
+              otros de la serie, marcó una época y sigue siendo fuente de inspiración 
+              para DJs de todo el mundo, siendo ampliamente utilizado hoy en día para 
+              remixes y reversiones de los mejores temas de los 90.</p>
+            </p>
+          </div>
+
+          <!-- Logo o imagen del disco -->
+          <div class="col-md-4 text-center">
+            <img
+              src="imgs/vinilo1.png"
+              alt="Logo del disco Anonim 3"
+              class="img-fluid logo-disco"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="player-container text-center">
+          <button id="playButton" class="btn-play">
+            ▶ Reproducir Anonim 3
+          </button>
+          <div id="videoContainer" style="display: none; margin-top: 20px">
+            <iframe
+              id="anonimVideo"
+              width="560"
+              height="315"
+              src="Anonim Vol.3 (Over Out Radio Edit) [bDPQ1CcKB54].mp3"
+              title="Anonim 3"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Sección Precio con imagen -->
+<section class="precio-vinilo container my-5 px-5 text-center">
+  <div class="row justify-content-center align-items-center">
+    <!-- Imagen del vinilo -->
+    <div class="col-md-4 d-flex justify-content-center mb-4 mb-md-0">
+      <img src="imgs/vinilo1.png" alt="Vinilo Anonim 3" class="imagen-vinilo-precio" />
+    </div>
+    
+    <!-- Información de precio -->
+    <div class="col-md-6 text-center text-md-start">
+      <h2>Precio del Vinilo  35€ </h2>
+      <a href="#" class="btn-comprar">Comprar Ahora</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+    <!-- Contacto -->
+    <section id="contacto" class="py-5 container text-center">
+      <h2 class="titulo-seccion">Contáctanos</h2>
+      <p>¿Tienes dudas o buscas un vinilo especial? Escríbenos.</p>
+      <form class="row g-3 justify-content-center mt-4">
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Nombre" />
+        </div>
+        <div class="col-md-4">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Correo electrónico"
+          />
+        </div>
+        <div class="col-md-8">
+          <textarea
+            class="form-control"
+            rows="4"
+            placeholder="Mensaje"
+          ></textarea>
+        </div>
+        <div class="col-12 mt-3">
+          <button type="submit" class="btn btn-neon">Enviar mensaje</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5">
+      <p>© 2025 RetroGroove Records. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+      document.getElementById("playButton").addEventListener("click", () => {
+        const container = document.getElementById("videoContainer");
+        container.style.display = "block";
+        document.getElementById("playButton").style.display = "none";
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
