@@ -1,0 +1,128 @@
+/* ====== Estilos base ====== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  color: #eaeaea;
+  background-color: #0f0f0f;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* ====== Fondo animado con gradiente dinámico ====== */
+.fondo-animado {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, #0f0f0f, #121212, #1a0033, #001f1f);
+  background-size: 400% 400%;
+  animation: moverGradiente 12s ease infinite;
+  z-index: -1;
+}
+
+@keyframes moverGradiente {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ====== Menú lateral ====== */
+.nav-lateral {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 230px;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(0, 255, 209, 0.2);
+  box-shadow: 5px 0 25px rgba(0, 255, 209, 0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-lateral:hover {
+  box-shadow: 10px 0 40px rgba(0, 255, 209, 0.25);
+}
+
+.nav-lateral .logo {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.5em;
+  color: #00ffd1;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #00ffd1;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.nav-lateral img {
+  width: 120px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 255, 209, 0.3);
+}
+
+.nav-lateral ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.nav-lateral ul li {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.nav-lateral ul li a {
+  display: inline-block;
+  width: 100%;
+  color: #eaeaea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 10px 0;
+}
+
+.nav-lateral ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #00ffd1, #7b61ff);
+  transition: width 0.3s ease;
+}
+
+.nav-lateral ul li a:hover::after {
+  width: 50%;
+}
+
+.nav-lateral ul li a:hover {
+  color: #00ffd1;
+  text-shadow: 0 0 10px #00ffd1;
+}
+
+/* Ajuste del contenido principal para no quedar detrás del menú */
+.contenido {
+  margin-left: 230px;
+  padding: 0 20px;
+}
