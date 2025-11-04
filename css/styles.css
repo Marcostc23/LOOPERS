@@ -341,4 +341,56 @@
 
 .sobre-nosotros-tienda img.logo-tienda:hover {
   transform: scale(1.03);
+}/* ====== Footer Neón ====== */
+.footer-neon {
+  background: rgba(0,0,0,0.7);
+  border-top: 1px solid rgba(0,255,209,0.3);
+  box-shadow: 0 -0 20px rgba(0,255,209,0.2);
+  backdrop-filter: blur(8px);
 }
+
+.footer-logo img {
+  width: 80px;
+  filter: drop-shadow(0 0 10px #00ffd1);
+}
+
+.footer-logo h3 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.4rem;
+  margin-top: 8px;
+  color: #00ffd1;
+  text-shadow: 0 0 10px #00ffd1;
+}
+
+.footer-enlaces a {
+  margin: 0 12px;
+  color: #eaeaea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: .3s;
+}
+
+.footer-enlaces a:hover {
+  color: #00ffd1;
+  text-shadow: 0 0 8px #00ffd1;
+}
+
+.footer-redes a {
+  margin: 0 8px;
+  font-size: 1.5rem;
+  color: #7b61ff;
+  transition: .3s;
+}
+
+.footer-redes a:hover {
+  color: #00ffd1;
+  text-shadow: 0 0 10px #00ffd1;
+  transform: scale(1.15);
+}
+
+.footer-copy {
+  margin-top: 12px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+  
