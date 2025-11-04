@@ -341,56 +341,99 @@
 
 .sobre-nosotros-tienda img.logo-tienda:hover {
   transform: scale(1.03);
-}/* ====== Footer Neón ====== */
-.footer-neon {
-  background: rgba(0,0,0,0.7);
-  border-top: 1px solid rgba(0,255,209,0.3);
-  box-shadow: 0 -0 20px rgba(0,255,209,0.2);
-  backdrop-filter: blur(8px);
 }
 
-.footer-logo img {
-  width: 80px;
-  filter: drop-shadow(0 0 10px #00ffd1);
+/* ====== Historia del Músico ====== */
+.historia-musico {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: radial-gradient(circle at top left, rgba(0,255,209,0.05), rgba(0,0,0,0.85));
+  border: 1px solid rgba(0,255,209,0.2);
+  border-radius: 15px;
+  padding: 50px 40px;
+  animation: fadeIn 1.2s ease-in-out;
 }
 
-.footer-logo h3 {
+.historia-musico h2 {
+  color: #00ffd1;
   font-family: "Orbitron", sans-serif;
-  font-size: 1.4rem;
-  margin-top: 8px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.historia-musico .intro {
+  color: #e0e0e0;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-size: 1.1em;
+}
+
+.historia-musico p {
+  color: #e0e0e0;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.imagen-anonim {
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0,255,209,0.25);
+  transition: transform 0.4s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+.imagen-anonim:hover {
+  transform: scale(1.05);
+}
+
+/* ====== Galería de volúmenes (versión compacta) ====== */
+.galeria-volumenes {
+  margin-top: 30px;
+}
+
+.card-volumen {
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid rgba(0,255,209,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 0 15px rgba(0,255,209,0.1);
+  max-width: 220px;  /* tamaño máximo reducido */
+  margin: 0 auto;    /* centrado */
+}
+
+.card-volumen:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 0 30px rgba(0,255,209,0.3);
+}
+
+.card-volumen img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid rgba(0,255,209,0.2);
+  transition: opacity 0.4s ease;
+}
+
+.card-volumen img:hover {
+  opacity: 0.9;
+}
+
+.card-volumen h3 {
+  font-family: "Orbitron", sans-serif;
   color: #00ffd1;
-  text-shadow: 0 0 10px #00ffd1;
+  font-size: 1em; /* texto un poco más pequeño */
+  margin: 12px 0;
+  letter-spacing: 1px;
 }
 
-.footer-enlaces a {
-  margin: 0 12px;
-  color: #eaeaea;
-  text-decoration: none;
-  font-weight: 500;
-  transition: .3s;
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+  .card-volumen {
+    max-width: 180px;
+  }
+  .card-volumen h3 {
+    font-size: 0.9em;
+  }
 }
-
-.footer-enlaces a:hover {
-  color: #00ffd1;
-  text-shadow: 0 0 8px #00ffd1;
-}
-
-.footer-redes a {
-  margin: 0 8px;
-  font-size: 1.5rem;
-  color: #7b61ff;
-  transition: .3s;
-}
-
-.footer-redes a:hover {
-  color: #00ffd1;
-  text-shadow: 0 0 10px #00ffd1;
-  transform: scale(1.15);
-}
-
-.footer-copy {
-  margin-top: 12px;
-  color: #aaa;
-  font-size: 0.9rem;
-}
-  
