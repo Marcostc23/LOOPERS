@@ -1,0 +1,29 @@
+[33mcommit 1a0bea2d8c71d616f51ca518c62ca50f50a172c6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Marcos Tomás <marcostomascampos@gmail.com>
+Date:   Tue Oct 14 10:24:13 2025 +0200
+
+    Añado el mp3 para que suene la cancion
+
+[33mcommit 573cbd9d4d697360bce65895fef93bd89dc0f539[m
+Author: Marcos Tomás <marcostomascampos@gmail.com>
+Date:   Tue Oct 14 10:23:37 2025 +0200
+
+    Añado el sobre nosotros al index y ya esta acabado
+
+[33mcommit 73616800411ab305e51578cc635f05b62acfccab[m
+Author: Marcos Tomás <marcostomascampos@gmail.com>
+Date:   Tue Oct 14 10:22:37 2025 +0200
+
+    Añado casi todo el contenido al html y css
+
+[33mcommit 4e5326c43e786aeb91d7a813d10d5f3431c68899[m
+Author: Marcos Tomás <marcostomascampos@gmail.com>
+Date:   Tue Oct 14 10:19:47 2025 +0200
+
+    Añado la barra laetral y sus respectivas clases
+
+[33mcommit f7bfa7a9a5d8eb8a909e1d97c7fd714f81a952d6[m
+Author: Loopers studio <nuevoemail@example.com>
+Date:   Tue Oct 14 10:16:39 2025 +0200
+
+    Commit inicial
