@@ -661,3 +661,62 @@
 .footer-redes a:hover {
   color: #00ffff;
 }
+
+.ubicacion {
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.ubicacion h2 {
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 8px #ff00ff;
+  margin-bottom: 10px;
+}
+
+.ubicacion p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.mapa-container iframe {
+  box-shadow: 0 0 15px #ff00ff;
+  transition: transform 0.3s ease;
+}
+
+.mapa-container iframe:hover {
+  transform: scale(1.02);
+}
+
+.footer-neon {
+  background-color: #000;
+  color: #fff;
+  border-top: 2px solid #ff00ff;
+  text-shadow: 0 0 6px #ff00ff;
+}
+
+.footer-enlaces a,
+.footer-redes a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-enlaces a:hover,
+.footer-redes a:hover {
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff;
+  transform: scale(1.1);
+}
+
+.footer-mini {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: 5px;
+  animation: brillo 3s infinite alternate;
+}
+
+@keyframes brillo {
+  0% { text-shadow: 0 0 5px #ff00ff; }
+  100% { text-shadow: 0 0 15px #00ffff; }
+}
