@@ -25,19 +25,19 @@
   <!-- Fondo animado -->
   <div class="fondo-animado"></div>
 
-  <!-- Menú lateral -->
-  <nav class="nav-lateral">
-    <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg" alt="Vinilo" />
-        RetroGroove</div>
-    <ul>
-      <li><a href="#">Inicio</a></li>
-      <li><a href="#">Catálogo</a></li>
-      <li><a href="#">Ofertas</a></li>
-      <li><a href="#">Contacto</a></li>
-    </ul>
-  </nav>
-
+  <!-- Menú lateral responsive -->
+<nav class="nav-lateral" id="navLateral">
+  <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg" alt="Vinilo RetroGroove" />
+      RetroGroove
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="">Catálogo</a></li>
+    <li><a href="#">Ofertas</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
   <!-- Contenido principal -->
   <div class="contenido">
     <main>
@@ -83,16 +83,9 @@
             ▶ Reproducir Anonim 3
           </button>
           <div id="videoContainer" style="display: none; margin-top: 20px">
-            <iframe
-              id="anonimVideo"
-              width="560"
-              height="315"
-              src="Anonim Vol.3 (Over Out Radio Edit) [bDPQ1CcKB54].mp3"
-              title="Anonim 3"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+            <audio controls>
+        <source src="Anonim Vol.3 (Over Out Radio Edit) [bDPQ1CcKB54].mp3" type="audio/mpeg">
+            </audio>
           </div>
         </div>
       </section>
@@ -238,13 +231,75 @@
       </form>
     </section>
 
+
+    <!-- ====== EVENTOS RETROGROOVE ====== -->
+<section class="eventos-neon py-5 text-center">
+  <div class="container">
+    <h2 class="titulo-seccion mb-4">🎶 Próximos Eventos RetroGroove</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="card-evento">
+          <h4>Vinyl Night Fever</h4>
+          <p class="fecha">📅 15 de Noviembre 2025</p>
+          <p class="lugar">📍 Sala Apolo, Barcelona</p>
+          <p class="detalle">Sesión exclusiva con vinilos originales de los 80’s. Entrada libre hasta completar aforo.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card-evento">
+          <h4>Electro Revival</h4>
+          <p class="fecha">📅 28 de Noviembre 2025</p>
+          <p class="lugar">📍 Mondo Disko, Madrid</p>
+          <p class="detalle">Una noche llena de sintetizadores, luces y puro sonido analógico.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card-evento">
+          <h4>Retro Vinyl Market</h4>
+          <p class="fecha">📅 6 de Diciembre 2025</p>
+          <p class="lugar">📍 Mercado de Fuencarral</p>
+          <p class="detalle">Feria de vinilos vintage, coleccionismo y rarezas sonoras.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== OPINIONES ====== -->
+<section class="opiniones-neon py-5 text-center">
+  <div class="container">
+    <h2 class="titulo-seccion mb-5">💬 Opiniones de Nuestros Clientes</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="card-opinion">
+          <p>“El sonido de mi infancia en cada vinilo. Una experiencia mágica ✨”</p>
+          <h5>- Mohamad A.</h5>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card-opinion">
+          <p>“RetroGroove me devolvió el amor por los vinilos. ¡Increíble calidad y servicio!”</p>
+          <h5>- Marcos T.</h5>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card-opinion">
+          <p>“El mejor lugar para descubrir joyas musicales olvidadas. 100% recomendado 🔥”</p>
+          <h5>- Enol P.</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
     <!-- Footer Mejorado -->
 <footer class="footer-neon text-center py-4 mt-5">
   <div class="container">
-    
     <div class="footer-logo mb-3">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg" alt="Vinilo RetroGroove" />
-      <h3>RetroGroove Records</h3>
+      <h3 class="neon-title">RetroGroove Records</h3>
     </div>
 
     <div class="footer-enlaces mb-3">
@@ -264,6 +319,8 @@
     <p class="footer-copy">© 2025 RetroGroove Records — El sonido nunca muere 🎶</p>
   </div>
 </footer>
+
+
 
 
     <script>
