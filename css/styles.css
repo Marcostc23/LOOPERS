@@ -720,3 +720,7 @@
   0% { text-shadow: 0 0 5px #ff00ff; }
   100% { text-shadow: 0 0 15px #00ffff; }
 }
+.login-link {
+  font-weight: 700;
+  color: #00eaff !important;
+}
