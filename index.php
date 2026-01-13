@@ -30,7 +30,7 @@
   </div>
   <ul class="nav-links">
   <li><a href="index.php">Inicio</a></li>
-  <li><a href="">Catálogo</a></li>
+  <li><a href="catalogo.php">Catálogo</a></li>
   <li><a href="#">Ofertas</a></li>
   <li><a href="#contacto">Contacto</a></li>
   <li><a href="login.php" class="login-link">Login</a></li>
@@ -46,7 +46,7 @@
         <img src="imgs/vinilo2.png" alt="Vinilo" class="imagen-vinilo" />
       </div>
 
-      <a href="#" class="boton">Ver catálogo</a>
+      <a href="catalogo.php" class="boton">Ver catálogo</a>
       
 
 
