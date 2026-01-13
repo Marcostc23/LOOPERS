@@ -19,28 +19,24 @@
 
   </head>
   <body>
-    <!-- Fondo animado -->
+    <div class="fondo-animado"></div>
+
   <div class="fondo-animado"></div>
 
-  <!-- Fondo animado -->
-  <div class="fondo-animado"></div>
-
-  <!-- Menú lateral responsive -->
-<nav class="nav-lateral" id="navLateral">
+  <nav class="nav-lateral" id="navLateral">
   <div class="logo">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg" alt="Vinilo RetroGroove" />
       RetroGroove
   </div>
   <ul class="nav-links">
-  <li><a href="index.html">Inicio</a></li>
+  <li><a href="index.php">Inicio</a></li>
   <li><a href="">Catálogo</a></li>
   <li><a href="#">Ofertas</a></li>
   <li><a href="#contacto">Contacto</a></li>
-  <li><a href="login.html" class="login-link">Login</a></li>
+  <li><a href="login.php" class="login-link">Login</a></li>
 </ul>
 
 </nav>
-  <!-- Contenido principal -->
   <div class="contenido">
     <main>
       <h1>RetroGroove Records</h1>
@@ -56,7 +52,6 @@
 
       <section class="sobre-nosotros container-fluid my-5 px-5">
         <div class="row align-items-center justify-content-between">
-          <!-- Texto -->
           <div class="col-md-7 texto">
             <h2>Anonim 3</h2>
             <p>
@@ -68,7 +63,6 @@
             </p>
           </div>
 
-          <!-- Logo o imagen del disco -->
           <div class="col-md-4 text-center">
             <img
               src="imgs/vinilo1.png"
@@ -93,17 +87,14 @@
       </section>
     </main>
 
-    <!-- Sección Precio con imagen -->
-<section class="precio-vinilo container my-5 px-5 text-center">
+    <section class="precio-vinilo container my-5 px-5 text-center">
   <div class="row justify-content-center align-items-center">
-    <!-- Imagen del vinilo -->
     <div class="col-md-4 d-flex justify-content-center mb-4 mb-md-0">
       <img src="imgs/vinilo1.png" alt="Vinilo Anonim 3" class="imagen-vinilo-precio" />
     </div>
     
-    <!-- Información de precio -->
     <div class="col-md-6 text-center text-md-start">
-      <h2>Precio del Vinilo  35€ </h2>
+      <h2>Precio del Vinilo   35€ </h2>
       <a href="#" class="btn-comprar">Comprar Ahora</a>
     </div>
   </div>
@@ -111,10 +102,8 @@
 
 
 
-<!-- Sobre Nosotros - Tienda -->
 <section class="sobre-nosotros-tienda container my-5 px-4">
   <div class="row align-items-center justify-content-between">
-    <!-- Texto -->
     <div class="col-md-7 texto">
       <h2>Sobre Nosotros</h2>
       <p>
@@ -132,7 +121,6 @@
       </p>
     </div>
 
-    <!-- Imagen -->
     <div class="col-md-4 text-center">
       <img
         src="imgs/foto_tienda.jpg"
@@ -143,7 +131,6 @@
   </div>
 </section>
 
-<!-- Historia del Músico -->
 <section class="historia-musico container my-5 px-4">
   <div class="row justify-content-center text-center mb-5">
     <h2>Historia del Músico: Anonim</h2>
@@ -178,7 +165,6 @@
     </div>
   </div>
 
-  <!-- Galería de volúmenes -->
   <div class="galeria-volumenes row justify-content-center">
     <div class="col-md-3 col-sm-6 mb-4">
       <div class="card-volumen">
@@ -203,14 +189,13 @@
   </div>
 </section>
 
-<!-- Ubicación -->
 <section class="ubicacion container my-5 text-center">
   <h2>📍 Nuestra Ubicación</h2>
   <p>Ven a visitarnos en nuestra tienda física y descubre el auténtico sonido del vinilo.</p>
 
   <div class="mapa-container mt-4">
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.268594210871!2d2.158990015720933!3d41.3879179792634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a2f3e0e2a1e9%3A0x2ed2e7a2a8b3c2e2!2sBarcelona!5e0!3m2!1ses!2ses!4v1697042943875!5m2!1ses!2ses"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.456!2d2.1734!3d41.3851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1ses!2ses!4v1625560000000!5m2!1ses!2ses"
       width="100%"
       height="300"
       style="border:0; border-radius: 12px;"
@@ -221,7 +206,6 @@
 </section>
 
 
-    <!-- Contacto -->
     <section id="contacto" class="py-5 container text-center">
       <h2 class="titulo-seccion">Contáctanos</h2>
       <p>¿Tienes dudas o buscas un vinilo especial? Escríbenos.</p>
@@ -250,8 +234,7 @@
     </section>
 
 
-    <!-- ====== EVENTOS RETROGROOVE ====== -->
-<section class="eventos-neon py-5 text-center">
+    <section class="eventos-neon py-5 text-center">
   <div class="container">
     <h2 class="titulo-seccion mb-4">🎶 Próximos Eventos RetroGroove</h2>
     <div class="row justify-content-center">
@@ -283,7 +266,6 @@
   </div>
 </section>
 
-<!-- ====== OPINIONES ====== -->
 <section class="opiniones-neon py-5 text-center">
   <div class="container">
     <h2 class="titulo-seccion mb-5">💬 Opiniones de Nuestros Clientes</h2>
@@ -312,9 +294,7 @@
 
 
 
-    <!-- Footer Mejorado -->
-<!-- Footer Mejorado -->
-<footer class="footer-neon text-center py-4 mt-5">
+    <footer class="footer-neon text-center py-4 mt-5">
   <div class="container">
     <div class="footer-logo mb-3">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg" alt="Vinilo RetroGroove" />
