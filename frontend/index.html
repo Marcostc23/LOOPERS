@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RetroGroove Records</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../backend/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="fondo-animado"></div>
+    <div class="fondo-animado"></div>
+
+  <nav class="nav-lateral" id="navLateral">
+  <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg" alt="Vinilo RetroGroove" />
+      RetroGroove
+  </div>
+  <ul class="nav-links">
+  <li><a href="../backend/index.php">Inicio</a></li>
+  <li><a href="../backend/catalogo.php">Catálogo</a></li>
+  <li><a href="#">Ofertas</a></li>
+  <li><a href="#contacto">Contacto</a></li>
+  <li><a href="../backend/login.php" class="login-link">Login</a></li>
+</ul>
+
+</nav>
+  <div class="contenido">
+    <main>
+      <h1>RetroGroove Records</h1>
+      <p class="eslogan">"Donde el vinilo nunca pasa de moda"</p>
+
+      <div class="vinilo-container">
+        <img src="imgs/vinilo2.png" alt="Vinilo" class="imagen-vinilo" />
+      </div>
+
+      <a href="../backend/catalogo.php" class="boton">Ver catálogo</a>
+      
+
+
+      <section class="sobre-nosotros container-fluid my-5 px-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-md-7 texto">
+            <h2>Anonim 3</h2>
+            <p>
+              <strong>Anonim 3</strong> Volumen histórico de 1998 de Radio Anonim, un clásico 
+              imprescindible de la música makinera de aquella época. <p>Este volumen, junto a 
+              otros de la serie, marcó una época y sigue siendo fuente de inspiración 
+              para DJs de todo el mundo, siendo ampliamente utilizado hoy en día para 
+              remixes y reversiones de los mejores temas de los 90.</p>
+            </p>
+          </div>
+
+          <div class="col-md-4 text-center">
+            <img
+              src="imgs/vinilo1.png"
+              alt="Logo del disco Anonim 3"
+              class="img-fluid logo-disco"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="player-container text-center">
+          <button id="playButton" class="btn-play">
+            ▶ Reproducir Anonim 3
+          </button>
+          <div id="videoContainer" style="display: none; margin-top: 20px">
+            <audio controls>
+              <source src="../Anonim Vol.3 (Over Out Radio Edit) [bDPQ1CcKB54].mp3" type="audio/mpeg">
+            </audio>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="precio-vinilo container my-5 px-5 text-center">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-4 d-flex justify-content-center mb-4 mb-md-0">
+      <img src="imgs/vinilo1.png" alt="Vinilo Anonim 3" class="imagen-vinilo-precio" />
+    </div>
+    
+    <div class="col-md-6 text-center text-md-start">
+      <h2>Precio del Vinilo   35€ </h2>
+      <a href="#" class="btn-comprar">Comprar Ahora</a>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="sobre-nosotros-tienda container my-5 px-4">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-7 texto">
+      <h2>Sobre Nosotros</h2>
+      <p>
+        En <strong>RetroGroove Records</strong> somos apasionados del vinilo y la música retro. 
+        Desde 2005, nos dedicamos a traer los clásicos y gemas ocultas de todos los géneros musicales, 
+        ofreciendo a nuestros clientes la experiencia única de escuchar música en su forma más auténtica.
+      </p>
+      <p>
+        Nuestra misión es mantener viva la cultura del vinilo, apoyando tanto a artistas legendarios como a talentos emergentes. 
+        Cada disco en nuestra colección ha sido cuidadosamente seleccionado para garantizar calidad y autenticidad.
+      </p>
+      <p>
+        Además, nuestra tienda ofrece un espacio para DJs, coleccionistas y amantes de la música, 
+        con asesoramiento personalizado, ediciones especiales y servicios de remasterización de vinilos.
+      </p>
+    </div>
+
+    <div class="col-md-4 text-center">
+      <img
+        src="imgs/foto_tienda.jpg"
+        alt="Tienda RetroGroove Records"
+        class="img-fluid logo-tienda"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="historia-musico container my-5 px-4">
+  <div class="row justify-content-center text-center mb-5">
+    <h2>Historia del Músico: Anonim</h2>
+    <p class="intro">
+      <strong>Anonim</strong> es un productor enigmático y referente de la música electrónica <em>makinera</em>.
+      Desde sus primeros volúmenes, ha dejado una huella imborrable en la cultura rave y en la escena
+      <em>ultra</em> del fútbol, donde su música representa energía, unión y fuerza colectiva.
+    </p>
+  </div>
+
+  <div class="row align-items-center justify-content-between mb-5">
+    <div class="col-md-7 texto">
+      <p>
+        Su trayectoria está marcada por tres volúmenes emblemáticos que definieron una época:
+        <strong>Anonim Vol.1</strong>, <strong>Anonim Vol.2</strong> y el icónico
+        <strong>Anonim Vol.3</strong>, este último siendo el más recordado por su sonido
+        contundente y su reciente resurgimiento en el panorama electrónico actual.
+      </p>
+      <p>
+        <strong>Anonim Vol.3</strong> se ha convertido en un himno moderno dentro del mundo
+        <em>makinero</em> y entre los aficionados al fútbol, sonando en gradas y eventos por toda España.
+        A pesar de la falta de información sobre su autor, su música sigue viva y más presente que nunca.
+      </p>
+    </div>
+
+    <div class="col-md-4 text-center">
+      <img
+        src="imgs/djkorpus.jpg"
+        alt="Anonim productor"
+        class="img-fluid imagen-anonim"
+      />
+    </div>
+  </div>
+
+  <div class="galeria-volumenes row justify-content-center">
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="card-volumen">
+        <img src="imgs/anonim1.png" alt="Anonim Vol.1" />
+        <h3>Anonim Vol.1</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="card-volumen">
+        <img src="imgs/anonim2.png" alt="Anonim Vol.2" />
+        <h3>Anonim Vol.2</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="card-volumen">
+        <img src="imgs/anonim3.png" alt="Anonim Vol.3" />
+        <h3>Anonim Vol.3</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ubicacion container my-5 text-center">
+  <h2>📍 Nuestra Ubicación</h2>
+  <p>Ven a visitarnos en nuestra tienda física y descubre el auténtico sonido del vinilo.</p>
+
+  <div class="mapa-container mt-4">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.456!2d2.1734!3d41.3851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDIzJzA2LjQiTiAywrAxMCcyNC4yIkU!5e0!3m2!1ses!2ses!4v1625560000000!5m2!1ses!2ses"
+      width="100%"
+      height="300"
+      style="border:0; border-radius: 12px;"
+      allowfullscreen=""
+      loading="lazy"
+    ></iframe>
+  </div>
+</section>
+
+
+    <section id="contacto" class="py-5 container text-center">
+      <h2 class="titulo-seccion">Contáctanos</h2>
+      <p>¿Tienes dudas o buscas un vinilo especial? Escríbenos.</p>
+      <form class="row g-3 justify-content-center mt-4">
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Nombre" />
+        </div>
+        <div class="col-md-4">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Correo electrónico"
+          />
+        </div>
+        <div class="col-md-8">
+          <textarea
+            class="form-control"
+            rows="4"
+            placeholder="Mensaje"
+          ></textarea>
+        </div>
+        <div class="col-12 mt-3">
+          <button type="submit" class="btn btn-neon">Enviar mensaje</button>
+        </div>
+      </form>
+    </section>
+
+
+    <section class="eventos-neon py-5 text-center">
+  <div class="container">
+    <h2 class="titulo-seccion mb-4">🎶 Próximos Eventos RetroGroove</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="card-evento">
+          <h4>Vinyl Night Fever</h4>
+          <p class="fecha">📅 15 de Noviembre 2025</p>
+          <p class="lugar">📍 Sala Apolo, Barcelona</p>
+          <p class="detalle">Sesión exclusiva con vinilos originales de los 80’s. Entrada libre hasta completar aforo.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card-evento">
+          <h4>Electro Revival</h4>
+          <p class="fecha">📅 28 de Noviembre 2025</p>
+          <p class="lugar">📍 Mondo Disko, Madrid</p>
+          <p class="detalle">Una noche llena de sintetizadores, luces y puro sonido analógico.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card-evento">
+          <h4>Retro Vinyl Market</h4>
+          <p class="fecha">📅 6 de Diciembre 2025</p>
+          <p class="lugar">📍 Mercado de Fuencarral</p>
+          <p class="detalle">Feria de vinilos vintage, coleccionismo y rarezas sonoras.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="opiniones-neon py-5 text-center">
+  <div class="container">
+    <h2 class="titulo-seccion mb-5">💬 Opiniones de Nuestros Clientes</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="card-opinion">
+          <p>“El sonido de mi infancia en cada vinilo. Una experiencia mágica ✨”</p>
+          <h5>- Mohamad A.</h5>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card-opinion">
+          <p>“RetroGroove me devolvió el amor por los vinilos. ¡Increíble calidad y servicio!”</p>
+          <h5>- Marcos T.</h5>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card-opinion">
+          <p>“El mejor lugar para descubrir joyas musicales olvidadas. 100% recomendado 🔥”</p>
+          <h5>- Enol P.</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <footer class="footer-neon text-center py-4 mt-5">
+  <div class="container">
+    <div class="footer-logo mb-3">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vinyl_record.svg" alt="Vinilo RetroGroove" />
+      <h3 class="neon-title">RetroGroove Records</h3>
+    </div>
+
+    <div class="footer-enlaces mb-3">
+      <a href="../backend/index.php">Inicio</a>
+      <a href="../backend/catalogo.php">Catálogo</a>
+      <a href="#">Ofertas</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+
+    <div class="footer-redes mb-3">
+      <a href="#"><i class="bi bi-instagram"></i></a>
+      <a href="#"><i class="bi bi-facebook"></i></a>
+      <a href="#"><i class="bi bi-youtube"></i></a>
+      <a href="#"><i class="bi bi-spotify"></i></a>
+    </div>
+
+    <p class="footer-copy">© 2025 RetroGroove Records — El sonido nunca muere 🎶</p>
+    <p class="footer-mini">Diseñado con 🎧 y pasión por la musica retro</p>
+  </div>
+</footer>
+
+
+    <script>
+      document.getElementById("playButton").addEventListener("click", () => {
+        const container = document.getElementById("videoContainer");
+        container.style.display = "block";
+        document.getElementById("playButton").style.display = "none";
+      });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

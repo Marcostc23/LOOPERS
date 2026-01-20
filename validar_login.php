@@ -1,8 +1,8 @@
 <?php
 session_start();
-// Cambiado: Ahora busca el archivo en la misma carpeta, no en 'includes'
-require "conexion.php"; 
+require "conexion.php";
 
+// Comprobar que se reciben datos del formulario
 if (!isset($_POST['usuario']) || !isset($_POST['password'])) {
     die("No se han enviado los datos del formulario.");
 }
@@ -10,24 +10,20 @@ if (!isset($_POST['usuario']) || !isset($_POST['password'])) {
 $usuario = $_POST['usuario'];
 $password = $_POST['password'];
 
-// Usamos una consulta preparada para mayor seguridad
-$stmt = $conexion->prepare("SELECT nombre, rol FROM usuarios WHERE usuario = ? AND password = ?");
-$stmt->bind_param("ss", $usuario, $password);
-$stmt->execute();
-$resultado = $stmt->get_result();
+// Consulta
+$sql = "SELECT * FROM usuarios 
+        WHERE usuario = '$usuario'
+        AND password = '$password'";
+
+
+$resultado = $conexion->query($sql);
 
 if ($resultado->num_rows == 1) {
-    $datos_usuario = $resultado->fetch_assoc();
-    
     $_SESSION['usuario'] = $usuario;
-    $_SESSION['nombre']  = $datos_usuario['nombre'];
-    $_SESSION['rol']     = $datos_usuario['rol'];
-
-    // Asegúrate de que el archivo de destino se llame exactamente así o cámbialo aquí:
-    header("Location: panel.php"); 
+    header("Location: panel.php");
     exit();
 } else {
-    echo "<h2 style='color:red;text-align:center;margin-top:50px;font-family:sans-serif;'>Usuario o contraseña incorrectos</h2>";
-    echo "<p style='text-align:center;'><a href='index.php'>Volver al login</a></p>";
+    echo "<h2 style='color:red;text-align:center;margin-top:50px;'>Usuario o contraseña incorrectos</h2>";
+    echo "<p style='text-align:center;'><a href='login.php'>Volver al login</a></p>";
 }
 ?>
