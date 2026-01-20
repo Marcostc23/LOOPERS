@@ -141,7 +141,7 @@
     <button type="submit" class="btn btn-login w-100 mt-3">Entrar al Sistema</button>
     
     <div>
-        <a href="index.php" class="btn btn-atras">
+        <a href="../frontend/index.html" class="btn btn-atras">
           <i class="fas fa-arrow-left me-2"></i> Volver a RetroGroove
         </a>
     </div>

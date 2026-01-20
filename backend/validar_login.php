@@ -28,6 +28,6 @@ if ($resultado->num_rows == 1) {
     exit();
 } else {
     echo "<h2 style='color:red;text-align:center;margin-top:50px;font-family:sans-serif;'>Usuario o contraseña incorrectos</h2>";
-    echo "<p style='text-align:center;'><a href='index.php'>Volver al login</a></p>";
+    echo "<p style='text-align:center;'><a href='../frontend/index.html'>Volver al login</a></p>";
 }
 ?>
