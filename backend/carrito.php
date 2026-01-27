@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
                     'nombre' => $v['nombre'],
                     'precio' => $v['precio'],
                     // IMPORTANTE: Ajustamos la ruta para que apunte a la carpeta frontend
-                    'foto' => "../frontend/imgs/" . basename($v['foto']),
+                    'foto' => "imgs/" . basename($v['foto']),
                     'cantidad' => 1
                 ];
             }

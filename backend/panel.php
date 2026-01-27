@@ -22,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
             $nombreArchivo = time() . '_' . basename($_FILES['foto']['name']);
             
             // CORRECCIÓN: Añadida la barra '/' después de imgs para que la ruta sea válida
-            $rutaDestino = '../frontend/imgs/' . $nombreArchivo; 
+            $rutaDestino = 'imgs/' . $nombreArchivo; 
             
             if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaDestino)) {
                 // CORRECCIÓN: Guardamos la ruta con la barra '/' para que el HTML la encuentre
-                $foto = '../frontend/imgs/' . $nombreArchivo;
+                $foto = 'imgs/' . $nombreArchivo;
             }
         }
 
@@ -170,7 +170,7 @@ $result_vinilos = $conexion->query($sql_vinilos);
                 <div class="card-vinilo">
                     <?php 
                         // Verificamos si la imagen existe físicamente
-                        $rutaImagen = $vinilo['foto'] ? $vinilo['foto'] : '../frontend/imgs/default_album.png';
+                        $rutaImagen = $vinilo['foto'] ? $vinilo['foto'] : 'imgs/default_album.png';
                     ?>
                     <img src="<?php echo $rutaImagen; ?>" alt="Portada">
                     
