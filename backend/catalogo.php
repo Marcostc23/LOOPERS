@@ -75,7 +75,22 @@ body {
 
 <body>
 
-<div class="container py-5">
+<div class="container pb-5">
+    <div class="header-section text-center">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <a href="https://loopers-ten.vercel.app/" class="text-secondary text-decoration-none small fw-bold" style="letter-spacing:2px">
+                <i class="fas fa-long-arrow-alt-left me-2"></i> VOLVER
+            </a>
+            
+            <a href="carrito.php" class="cart-icon-container">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+                <?php if($conteo_carrito > 0): ?>
+                    <span class="badge rounded-pill bg-info ms-2 text-dark"><?php echo $conteo_carrito; ?></span>
+                <?php endif; ?>
+            </a>
+        </div>
+        <h1 class="neon-title">Catálogo</h1>
+    </div>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <a href="../frontend/index.html" class="text-secondary fw-bold text-decoration-none">← VOLVER</a>
