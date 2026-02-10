@@ -23,11 +23,12 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 
     if(!$errores){
         $stmt = $conexion->prepare(
-            "INSERT INTO opiniones (vinilo_id,nombre,ciudad,comentario)
-             VALUES (?,?,?,?)"
-        );
-        $stmt->bind_param("isss",$vinilo_id,$nombre,$ciudad,$comentario);
-        $stmt->execute();
+    "INSERT INTO opiniones (vinilo_id, nombre, ciudad, comentario, created_at)
+     VALUES (?, ?, ?, ?, NOW())"
+);
+$stmt->bind_param("isss", $vinilo_id, $nombre, $ciudad, $comentario);
+$stmt->execute();
+
         $stmt->close();
 
         header("Location: catalogo.php#opiniones");
