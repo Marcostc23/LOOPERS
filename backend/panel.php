@@ -8,9 +8,31 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-// Para mostrar errores al admin sin fatal error
 $error_msg   = '';
 $success_msg = '';
+
+// ============================================================
+// CONFIGURACIÓN DE RUTAS
+// El servidor PHP arranca con: php -S 0.0.0.0:PORT -t .
+// desde la raíz del proyecto (/app), por eso las URLs
+// públicas son absolutas desde la raíz: /frontend/imgs/
+// ============================================================
+define('IMGS_DIR',     __DIR__ . '/../frontend/imgs/');  // ruta física en disco
+define('IMGS_URL',     '/frontend/imgs/');               // URL pública
+define('IMGS_DEFAULT', '/frontend/imgs/vinilo1.png');    // imagen fallback
+
+function urlImagen($foto) {
+    if (empty($foto)) return IMGS_DEFAULT;
+
+    // Funciona con "nombre.jpg" y con "../frontend/imgs/nombre.jpg"
+    $nombre = basename(str_replace('\\', '/', $foto));
+
+    if (file_exists(IMGS_DIR . $nombre)) {
+        return IMGS_URL . $nombre;
+    }
+
+    return IMGS_DEFAULT;
+}
 
 // --- SECCIÓN DE ACCIONES (POST) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
@@ -21,36 +43,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
         $nombre      = $conexion->real_escape_string($_POST['nombre']);
         $descripcion = $conexion->real_escape_string($_POST['descripcion']);
         $precio      = floatval($_POST['precio']);
+        $anio        = intval($_POST['anio']);
 
-        // ✅ Validamos el año: columna YEAR solo acepta 1901-2155
-        $anio = intval($_POST['anio']);
         if ($anio < 1901 || $anio > 2155) {
             $error_msg = "El año '$anio' no es válido. Debe estar entre 1901 y 2155.";
         } else {
             $foto = '';
-            if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-                $nombreArchivo     = time() . '_' . basename($_FILES['foto']['name']);
-                $directorioDestino = __DIR__ . '/../frontend/imgs/';
 
-                if (!is_dir($directorioDestino)) {
-                    mkdir($directorioDestino, 0777, true);
+            if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+                $nombreArchivo = time() . '_' . basename($_FILES['foto']['name']);
+
+                if (!is_dir(IMGS_DIR)) {
+                    mkdir(IMGS_DIR, 0777, true);
                 }
 
-                $rutaSubida = $directorioDestino . $nombreArchivo;
-                if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaSubida)) {
+                if (move_uploaded_file($_FILES['foto']['tmp_name'], IMGS_DIR . $nombreArchivo)) {
+                    // Solo guardamos el nombre en la BD
                     $foto = $nombreArchivo;
+                } else {
+                    $error_msg = "No se pudo subir la imagen. Comprueba permisos en frontend/imgs/";
                 }
             }
 
-            $foto_escaped = $conexion->real_escape_string($foto);
-            $sql = "INSERT INTO vinilos (autor, nombre, descripcion, precio, anio, foto, visible) 
-                    VALUES ('$autor', '$nombre', '$descripcion', $precio, $anio, '$foto_escaped', 1)";
+            if (empty($error_msg)) {
+                $foto_escaped = $conexion->real_escape_string($foto);
+                $sql = "INSERT INTO vinilos (autor, nombre, descripcion, precio, anio, foto, visible) 
+                        VALUES ('$autor', '$nombre', '$descripcion', $precio, $anio, '$foto_escaped', 1)";
 
-            // ✅ Capturamos el error de MySQL en lugar de dejar que explote
-            if (!$conexion->query($sql)) {
-                $error_msg = "Error al guardar: " . $conexion->error;
-            } else {
-                $success_msg = "Vinilo '$nombre' añadido correctamente.";
+                if (!$conexion->query($sql)) {
+                    $error_msg = "Error al guardar en BD: " . $conexion->error;
+                } else {
+                    $success_msg = "Vinilo '$nombre' añadido correctamente.";
+                }
             }
         }
     }
@@ -61,16 +85,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
         $conexion->query("DELETE FROM vinilos WHERE id = $id");
     }
 
-    // 3. Cambiar visibilidad (Toggle)
+    // 3. Toggle visibilidad
     if ($_POST['accion'] == 'toggle' && isset($_POST['id'])) {
-        $id        = intval($_POST['id']);
-        $resultado = $conexion->query("SELECT visible FROM vinilos WHERE id = $id");
-        $row       = $resultado->fetch_assoc();
+        $id          = intval($_POST['id']);
+        $resultado   = $conexion->query("SELECT visible FROM vinilos WHERE id = $id");
+        $row         = $resultado->fetch_assoc();
         $nuevoEstado = $row['visible'] ? 0 : 1;
         $conexion->query("UPDATE vinilos SET visible = $nuevoEstado WHERE id = $id");
     }
 
-    // 4. Borrar una opinión de cliente
+    // 4. Borrar opinión
     if ($_POST['accion'] == 'borrar_opinion' && isset($_POST['id_opinion'])) {
         $id_op = intval($_POST['id_opinion']);
         $conexion->query("DELETE FROM opiniones WHERE id = $id_op");
@@ -78,17 +102,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
         exit();
     }
 
-    // Solo redirigimos si no hubo error (para no perder el mensaje de error)
     if (empty($error_msg)) {
         header("Location: panel.php");
         exit();
     }
 }
 
-// --- SECCIÓN DE CONSULTAS (GET) ---
-
-// Consulta de Vinilos con buscador
-$buscar     = $_GET['buscar'] ?? '';
+// --- CONSULTAS ---
+$buscar      = $_GET['buscar'] ?? '';
 $sql_vinilos = "SELECT * FROM vinilos";
 if ($buscar != '') {
     $b = $conexion->real_escape_string($buscar);
@@ -96,15 +117,12 @@ if ($buscar != '') {
 }
 $result_vinilos = $conexion->query($sql_vinilos);
 
-// Consulta de Opiniones con filtros
-$f_ciudad = $_GET['f_ciudad'] ?? '';
-$f_vinilo = $_GET['f_vinilo'] ?? '';
-
+$f_ciudad      = $_GET['f_ciudad'] ?? '';
+$f_vinilo      = $_GET['f_vinilo'] ?? '';
 $sql_opiniones = "SELECT o.*, v.nombre AS vinilo_nombre 
                   FROM opiniones o 
                   JOIN vinilos v ON o.vinilo_id = v.id 
                   WHERE 1=1";
-
 if ($f_ciudad != '') {
     $c = $conexion->real_escape_string($f_ciudad);
     $sql_opiniones .= " AND o.ciudad LIKE '%$c%'";
@@ -115,25 +133,7 @@ if ($f_vinilo != '') {
 }
 $sql_opiniones .= " ORDER BY o.created_at DESC";
 $res_opiniones  = $conexion->query($sql_opiniones);
-
-// ✅ Función auxiliar para construir la URL de la imagen en el panel
-function urlImagenPanel($foto) {
-    if (empty($foto)) {
-        return '../frontend/imgs/vinilo1.png';
-    }
-
-    // Si ya es una ruta relativa larga (registros antiguos), extraemos solo el nombre
-    $nombreArchivo = basename(str_replace('\\', '/', $foto));
-
-    $rutaFisica = __DIR__ . '/../frontend/imgs/' . $nombreArchivo;
-    if (file_exists($rutaFisica)) {
-        return '../frontend/imgs/' . rawurlencode($nombreArchivo);
-    }
-
-    return '../frontend/imgs/vinilo1.png';
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -150,8 +150,8 @@ function urlImagenPanel($foto) {
     </style>
 </head>
 <body class="p-4">
-
 <div class="container">
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Panel de Control</h1>
         <div class="text-end">
@@ -174,6 +174,7 @@ function urlImagenPanel($foto) {
         </div>
     <?php endif; ?>
 
+    <!-- AÑADIR VINILO -->
     <div class="card-custom mb-5">
         <h2 class="h4 mb-4">Añadir Nuevo Vinilo</h2>
         <form method="post" enctype="multipart/form-data" class="row g-3">
@@ -188,6 +189,7 @@ function urlImagenPanel($foto) {
         </form>
     </div>
 
+    <!-- INVENTARIO -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="h4">Inventario</h2>
         <form method="get" class="d-flex gap-2">
@@ -200,19 +202,15 @@ function urlImagenPanel($foto) {
         <?php while ($vinilo = $result_vinilos->fetch_assoc()): ?>
             <div class="col-sm-6 col-lg-3 mb-4">
                 <div class="card-vinilo">
-                    <!-- ✅ Usamos la función auxiliar para la URL correcta -->
-                    <img src="<?= htmlspecialchars(urlImagenPanel($vinilo['foto'])) ?>" alt="Portada">
-
+                    <img src="<?= htmlspecialchars(urlImagen($vinilo['foto'])) ?>" alt="Portada">
                     <h5 class="text-warning mb-1"><?= htmlspecialchars($vinilo['nombre']); ?></h5>
                     <p class="small text-secondary mb-2"><?= htmlspecialchars($vinilo['autor']); ?></p>
                     <p class="fw-bold fs-5 mb-2"><?= number_format($vinilo['precio'], 2); ?> €</p>
-
                     <div class="mb-3">
                         <span class="badge <?= $vinilo['visible'] ? 'bg-success' : 'bg-danger'; ?>">
                             <?= $vinilo['visible'] ? 'Visible' : 'Oculto'; ?>
                         </span>
                     </div>
-
                     <div class="d-flex justify-content-center gap-2">
                         <form method="post">
                             <input type="hidden" name="accion" value="toggle">
@@ -232,6 +230,7 @@ function urlImagenPanel($foto) {
         <?php endwhile; ?>
     </div>
 
+    <!-- OPINIONES -->
     <hr class="border-warning my-5" id="seccion-opiniones">
     <div class="card-custom mb-5">
         <h2 class="h4 mb-4" style="color: #17a2b8;">Opiniones de Clientes</h2>
@@ -241,7 +240,6 @@ function urlImagenPanel($foto) {
             <div class="col-md-2"><button type="submit" class="btn btn-info btn-sm w-100 text-white">Filtrar</button></div>
             <div class="col-md-2"><a href="panel.php#seccion-opiniones" class="btn btn-outline-secondary btn-sm w-100">Limpiar</a></div>
         </form>
-
         <div class="table-responsive">
             <table class="table table-dark table-hover small">
                 <thead>
@@ -267,6 +265,8 @@ function urlImagenPanel($foto) {
             </table>
         </div>
     </div>
+
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+</html> 
