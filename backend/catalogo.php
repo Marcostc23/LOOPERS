@@ -11,7 +11,7 @@ if (isset($_SESSION['carrito'])) {
 }
 
 /* ---------- VINILOS ---------- */
-$sql = "SELECT * FROM vinilos WHERE visible = 1 ORDER BY id DESC";
+$sql       = "SELECT * FROM vinilos WHERE visible = 1 ORDER BY id DESC";
 $resultado = $conexion->query($sql);
 
 /* ---------- OPINIONES ---------- */
@@ -29,6 +29,23 @@ if ($resOpiniones) {
     while ($row = $resOpiniones->fetch_assoc()) {
         $opiniones[] = $row;
     }
+}
+
+// ✅ Función auxiliar: recibe el valor de BD y devuelve la URL correcta para el navegador
+function urlImagenCatalogo($foto) {
+    if (empty($foto)) {
+        return 'imgs/vinilo1.png';
+    }
+
+    // Extraemos solo el nombre de archivo (compatible con registros viejos y nuevos)
+    $nombreArchivo = basename(str_replace('\\', '/', $foto));
+
+    $rutaFisica = __DIR__ . '/imgs/' . $nombreArchivo;
+    if (file_exists($rutaFisica)) {
+        return 'imgs/' . rawurlencode($nombreArchivo);
+    }
+
+    return 'imgs/vinilo1.png';
 }
 ?>
 <!DOCTYPE html>
@@ -71,8 +88,6 @@ body {
     font-size:1.5rem;
     color:#00eaff;
 }
-
-/* (Opcional) si quieres que el icono del carrito se vea como antes */
 .cart-icon-container {
     background: rgba(255,255,255,0.05);
     padding: 12px 14px;
@@ -86,13 +101,22 @@ body {
     background:#00eaff;
     color:black;
 }
+/* ✅ Estilo para las imágenes de los vinilos */
+.card-vinilo img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    background: #111;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container pb-5">
-    <!-- ✅ HEADER ÚNICO (sin duplicados) -->
+    <!-- HEADER -->
     <div class="header-section text-center pt-5">
         <div class="d-flex justify-content-between align-items-center mb-5">
             <a href="https://loopers-ten.vercel.app/" class="text-secondary text-decoration-none small fw-bold" style="letter-spacing:2px">
@@ -117,9 +141,8 @@ body {
         <div class="col-md-4 col-xl-3">
             <div class="card-vinilo text-center d-flex flex-column">
 
-                <?php if($v['foto']): ?>
-                    <img src="<?= htmlspecialchars($v['foto']) ?>" class="img-fluid rounded mb-3" alt="Vinilo">
-                <?php endif; ?>
+                <!-- ✅ Siempre mostramos imagen usando la función auxiliar -->
+                <img src="<?= htmlspecialchars(urlImagenCatalogo($v['foto'])) ?>" alt="<?= htmlspecialchars($v['nombre']) ?>">
 
                 <h5><?= htmlspecialchars($v['nombre']) ?></h5>
                 <p class="text-secondary mb-2"><?= htmlspecialchars($v['autor']) ?></p>
@@ -142,7 +165,7 @@ body {
 
     <hr class="my-5">
 
-    <!-- ===== CARRUSEL OPINIONES ===== -->
+    <!-- CARRUSEL OPINIONES -->
     <section id="opiniones">
         <h2 class="text-center neon-title mb-4">OPINIONES</h2>
 
@@ -164,7 +187,7 @@ body {
                                             <strong><?= htmlspecialchars($op['nombre']) ?></strong>
                                             <div class="text-secondary small"><?= htmlspecialchars($op['ciudad']) ?></div>
 
-                                            <p class="mt-3">“<?= nl2br(htmlspecialchars($op['comentario'])) ?>”</p>
+                                            <p class="mt-3">"<?= nl2br(htmlspecialchars($op['comentario'])) ?>"</p>
 
                                             <div class="mt-3 text-info small">
                                                 Vinilo: <?= htmlspecialchars($op['vinilo_nombre']) ?>
