@@ -20,17 +20,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
         $anio = intval($_POST['anio']);
 
         $foto = '';
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-            $nombreArchivo = time() . '_' . basename($_FILES['foto']['name']);
-            
-            // RUTA FÍSICA: Para que el servidor mueva el archivo correctamente
-            $rutaSubida = '../frontend/imgs/' . $nombreArchivo; 
-            
-            if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaSubida)) {
-                // Guardamos la ruta relativa para que el navegador la encuentre después
-                $foto = '../frontend/imgs/' . $nombreArchivo;
-            }
-        }
+if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+    $nombreArchivo = time() . '_' . basename($_FILES['foto']['name']);
+    
+    // Definimos la carpeta de destino
+    $directorioDestino = '../frontend/imgs/';
+
+    // Si la carpeta no existe, la creamos con permisos
+    if (!is_dir($directorioDestino)) {
+        mkdir($directorioDestino, 0777, true);
+    }
+
+    $rutaSubida = $directorioDestino . $nombreArchivo; 
+    
+    if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaSubida)) {
+        $foto = '../frontend/imgs/' . $nombreArchivo;
+    }
+}
 
         $sql = "INSERT INTO vinilos (autor, nombre, descripcion, precio, anio, foto, visible) 
                 VALUES ('$autor', '$nombre', '$descripcion', $precio, $anio, '$foto', 1)";
