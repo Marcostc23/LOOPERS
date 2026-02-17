@@ -2,6 +2,23 @@
 session_start();
 require "conexion.php";
 
+function rutaImagenVinilo($rutaGuardada) {
+    $fallback = "imgs/vinilo1.png";
+    if (empty($rutaGuardada)) {
+        return $fallback;
+    }
+
+    $rutaNormalizada = str_replace("\\", "/", trim($rutaGuardada));
+    $nombreArchivo = basename($rutaNormalizada);
+    $rutaLocal = __DIR__ . "/imgs/" . $nombreArchivo;
+
+    if ($nombreArchivo !== "" && file_exists($rutaLocal)) {
+        return "imgs/" . rawurlencode($nombreArchivo);
+    }
+
+    return $fallback;
+}
+
 if (!isset($_SESSION['usuario'])) {
     header("Location: ../frontend/index.html");
     exit();
@@ -168,11 +185,8 @@ $result_vinilos = $conexion->query($sql_vinilos);
             <?php while ($vinilo = $result_vinilos->fetch_assoc()): ?>
             <div class="col-sm-6 col-lg-3 mb-4">
                 <div class="card-vinilo">
-                    <?php 
-                        // Verificamos si la imagen existe físicamente
-                        $rutaImagen = $vinilo['foto'] ? $vinilo['foto'] : 'imgs/default_album.png';
-                    ?>
-                    <img src="<?php echo $rutaImagen; ?>" alt="Portada">
+                    <?php $rutaImagen = rutaImagenVinilo($vinilo['foto']); ?>
+                    <img src="<?php echo htmlspecialchars($rutaImagen); ?>" alt="Portada">
                     
                     <h5 class="text-warning mb-1"><?php echo htmlspecialchars($vinilo['nombre']); ?></h5>
                     <p class="small text-secondary mb-2"><?php echo htmlspecialchars($vinilo['autor']); ?></p>
