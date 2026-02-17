@@ -10,8 +10,11 @@ if (!isset($_SESSION['usuario'])) {
 $error_msg   = '';
 $success_msg = '';
 
-define('IMGS_DIR',     __DIR__ . '/imgs/');
-define('IMGS_URL',     '/backend/imgs/');
+// ✅ RUTAS DEFINITIVAS confirmadas por debug:
+// - Disco:  /app/imgs/
+// - URL:    /imgs/nombre.jpg
+define('IMGS_DIR',     '/app/imgs/');
+define('IMGS_URL',     '/imgs/');
 define('IMGS_DEFAULT', '/frontend/imgs/vinilo1.png');
 
 function urlImagen($foto) {
@@ -25,21 +28,6 @@ function urlImagen($foto) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
 
     if ($_POST['accion'] == 'añadir') {
-
-        // ==========================================
-        // TEST TEMPORAL - bórralo cuando funcione
-        // ==========================================
-        $debug = [
-            'IMGS_DIR'   => IMGS_DIR,
-            'dir_existe' => is_dir(IMGS_DIR) ? 'SÍ' : 'NO',
-            'escribible' => is_writable(IMGS_DIR) ? 'SÍ' : 'NO',
-            'file_error' => $_FILES['foto']['error'] ?? 'no hay archivo',
-            'tmp_name'   => $_FILES['foto']['tmp_name'] ?? 'vacío',
-            'file_size'  => $_FILES['foto']['size'] ?? 0,
-        ];
-        die('<pre style="background:#111;color:#0f0;padding:20px;font-size:14px;">' . print_r($debug, true) . '</pre>');
-        // ==========================================
-
         $autor       = $conexion->real_escape_string($_POST['autor']);
         $nombre      = $conexion->real_escape_string($_POST['nombre']);
         $descripcion = $conexion->real_escape_string($_POST['descripcion']);
@@ -56,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
                 if (move_uploaded_file($_FILES['foto']['tmp_name'], IMGS_DIR . $nombreArchivo)) {
                     $foto = $nombreArchivo;
                 } else {
-                    $error_msg = "No se pudo subir la imagen.";
+                    $error_msg = "No se pudo mover la imagen.";
                 }
             }
             if (empty($error_msg)) {
