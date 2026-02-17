@@ -80,7 +80,7 @@ $total_final = 0;
                 <?php else: ?>
                     <table class="table align-middle">
                         <thead>
-                            <tr class="text-secondary small">
+                            <tr class="text-white small">
                                 <th>DISCO</th>
                                 <th>PRECIO</th>
                                 <th>CANT.</th>
