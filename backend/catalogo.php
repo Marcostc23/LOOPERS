@@ -17,9 +17,9 @@ $resultado = $conexion->query($sql);
 /* ---------- OPINIONES ---------- */
 $sqlOpiniones = "
     SELECT o.nombre, o.ciudad, o.comentario, o.created_at,
-           v.nombre AS vinilo_nombre
+           COALESCE(v.nombre, '[Vinilo eliminado]') AS vinilo_nombre
     FROM opiniones o
-    INNER JOIN vinilos v ON v.id = o.vinilo_id
+    LEFT JOIN vinilos v ON v.id = o.vinilo_id
     ORDER BY o.created_at DESC, o.id DESC
 ";
 $resOpiniones = $conexion->query($sqlOpiniones);
@@ -31,21 +31,19 @@ if ($resOpiniones) {
     }
 }
 
-// ✅ Función auxiliar: recibe el valor de BD y devuelve la URL correcta para el navegador
+// ✅ Misma lógica que panel.php: sin file_exists(), URL absoluta /imgs/
 function urlImagenCatalogo($foto) {
-    if (empty($foto)) {
-        return 'imgs/vinilo1.png';
+    if (empty($foto)) return '/frontend/imgs/vinilo1.png';
+    $nombre = basename(str_replace('\\', '/', $foto));
+    if (empty($nombre)) return '/frontend/imgs/vinilo1.png';
+
+    // Primero buscamos en /imgs/ (imágenes subidas desde el panel)
+    // Si empieza por "frontend/imgs/" es un registro viejo → usamos esa ruta
+    if (strpos($foto, 'frontend/imgs/') !== false) {
+        return '/' . ltrim(str_replace('\\', '/', $foto), '/');
     }
 
-    // Extraemos solo el nombre de archivo (compatible con registros viejos y nuevos)
-    $nombreArchivo = basename(str_replace('\\', '/', $foto));
-
-    $rutaFisica = __DIR__ . '/imgs/' . $nombreArchivo;
-    if (file_exists($rutaFisica)) {
-        return 'imgs/' . rawurlencode($nombreArchivo);
-    }
-
-    return 'imgs/vinilo1.png';
+    return '/imgs/' . $nombre;
 }
 ?>
 <!DOCTYPE html>
@@ -101,7 +99,6 @@ body {
     background:#00eaff;
     color:black;
 }
-/* ✅ Estilo para las imágenes de los vinilos */
 .card-vinilo img {
     width: 100%;
     height: 220px;
@@ -141,8 +138,9 @@ body {
         <div class="col-md-4 col-xl-3">
             <div class="card-vinilo text-center d-flex flex-column">
 
-                <!-- ✅ Siempre mostramos imagen usando la función auxiliar -->
-                <img src="<?= htmlspecialchars(urlImagenCatalogo($v['foto'])) ?>" alt="<?= htmlspecialchars($v['nombre']) ?>">
+                <img src="<?= htmlspecialchars(urlImagenCatalogo($v['foto'])) ?>"
+                     alt="<?= htmlspecialchars($v['nombre']) ?>"
+                     onerror="this.src='/frontend/imgs/vinilo1.png';">
 
                 <h5><?= htmlspecialchars($v['nombre']) ?></h5>
                 <p class="text-secondary mb-2"><?= htmlspecialchars($v['autor']) ?></p>
@@ -186,9 +184,7 @@ body {
                                         <div class="card-vinilo">
                                             <strong><?= htmlspecialchars($op['nombre']) ?></strong>
                                             <div class="text-secondary small"><?= htmlspecialchars($op['ciudad']) ?></div>
-
                                             <p class="mt-3">"<?= nl2br(htmlspecialchars($op['comentario'])) ?>"</p>
-
                                             <div class="mt-3 text-info small">
                                                 Vinilo: <?= htmlspecialchars($op['vinilo_nombre']) ?>
                                             </div>
