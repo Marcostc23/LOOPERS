@@ -8,38 +8,51 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
+// Para mostrar errores al admin sin fatal error
+$error_msg   = '';
+$success_msg = '';
+
 // --- SECCIÓN DE ACCIONES (POST) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
 
     // 1. Añadir un nuevo vinilo
     if ($_POST['accion'] == 'añadir') {
-        $autor        = $conexion->real_escape_string($_POST['autor']);
-        $nombre       = $conexion->real_escape_string($_POST['nombre']);
-        $descripcion  = $conexion->real_escape_string($_POST['descripcion']);
-        $precio       = floatval($_POST['precio']);
-        $anio         = intval($_POST['anio']);
+        $autor       = $conexion->real_escape_string($_POST['autor']);
+        $nombre      = $conexion->real_escape_string($_POST['nombre']);
+        $descripcion = $conexion->real_escape_string($_POST['descripcion']);
+        $precio      = floatval($_POST['precio']);
 
-        $foto = '';
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-            $nombreArchivo     = time() . '_' . basename($_FILES['foto']['name']);
-            $directorioDestino = __DIR__ . '/../frontend/imgs/';
+        // ✅ Validamos el año: columna YEAR solo acepta 1901-2155
+        $anio = intval($_POST['anio']);
+        if ($anio < 1901 || $anio > 2155) {
+            $error_msg = "El año '$anio' no es válido. Debe estar entre 1901 y 2155.";
+        } else {
+            $foto = '';
+            if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+                $nombreArchivo     = time() . '_' . basename($_FILES['foto']['name']);
+                $directorioDestino = __DIR__ . '/../frontend/imgs/';
 
-            if (!is_dir($directorioDestino)) {
-                mkdir($directorioDestino, 0777, true);
+                if (!is_dir($directorioDestino)) {
+                    mkdir($directorioDestino, 0777, true);
+                }
+
+                $rutaSubida = $directorioDestino . $nombreArchivo;
+                if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaSubida)) {
+                    $foto = $nombreArchivo;
+                }
             }
 
-            $rutaSubida = $directorioDestino . $nombreArchivo;
+            $foto_escaped = $conexion->real_escape_string($foto);
+            $sql = "INSERT INTO vinilos (autor, nombre, descripcion, precio, anio, foto, visible) 
+                    VALUES ('$autor', '$nombre', '$descripcion', $precio, $anio, '$foto_escaped', 1)";
 
-            if (move_uploaded_file($_FILES['foto']['tmp_name'], $rutaSubida)) {
-                // ✅ Guardamos SOLO el nombre del archivo en la BD
-                $foto = $nombreArchivo;
+            // ✅ Capturamos el error de MySQL en lugar de dejar que explote
+            if (!$conexion->query($sql)) {
+                $error_msg = "Error al guardar: " . $conexion->error;
+            } else {
+                $success_msg = "Vinilo '$nombre' añadido correctamente.";
             }
         }
-
-        $foto_escaped = $conexion->real_escape_string($foto);
-        $sql = "INSERT INTO vinilos (autor, nombre, descripcion, precio, anio, foto, visible) 
-                VALUES ('$autor', '$nombre', '$descripcion', $precio, $anio, '$foto_escaped', 1)";
-        $conexion->query($sql);
     }
 
     // 2. Borrar un vinilo
@@ -65,8 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
         exit();
     }
 
-    header("Location: panel.php");
-    exit();
+    // Solo redirigimos si no hubo error (para no perder el mensaje de error)
+    if (empty($error_msg)) {
+        header("Location: panel.php");
+        exit();
+    }
 }
 
 // --- SECCIÓN DE CONSULTAS (GET) ---
@@ -144,6 +160,20 @@ function urlImagenPanel($foto) {
         </div>
     </div>
 
+    <?php if ($error_msg): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>⚠️ Error:</strong> <?= htmlspecialchars($error_msg) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($success_msg): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>✅</strong> <?= htmlspecialchars($success_msg) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php endif; ?>
+
     <div class="card-custom mb-5">
         <h2 class="h4 mb-4">Añadir Nuevo Vinilo</h2>
         <form method="post" enctype="multipart/form-data" class="row g-3">
@@ -151,7 +181,7 @@ function urlImagenPanel($foto) {
             <div class="col-md-3"><label class="form-label">Autor</label><input type="text" name="autor" required class="form-control bg-dark text-white"></div>
             <div class="col-md-3"><label class="form-label">Título</label><input type="text" name="nombre" required class="form-control bg-dark text-white"></div>
             <div class="col-md-3"><label class="form-label">Precio (€)</label><input type="number" step="0.01" name="precio" required class="form-control bg-dark text-white"></div>
-            <div class="col-md-3"><label class="form-label">Año</label><input type="number" name="anio" required class="form-control bg-dark text-white"></div>
+            <div class="col-md-3"><label class="form-label">Año</label><input type="number" name="anio" required min="1901" max="2155" class="form-control bg-dark text-white"></div>
             <div class="col-md-8"><label class="form-label">Descripción</label><input type="text" name="descripcion" class="form-control bg-dark text-white"></div>
             <div class="col-md-4"><label class="form-label">Portada</label><input type="file" name="foto" accept="image/*" class="form-control bg-dark text-white"></div>
             <div class="col-12 text-end"><button type="submit" class="btn btn-primary px-4">Guardar Vinilo</button></div>
