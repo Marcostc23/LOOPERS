@@ -55,6 +55,12 @@ $total_final = 0;
         .btn-checkout { background: #00eaff; color: black; font-weight: bold; border-radius: 10px; padding: 15px; transition: 0.3s; border: none; display: block; text-decoration: none; text-align: center; }
         .btn-checkout:hover { background: white; box-shadow: 0 0 25px #00eaff; transform: scale(1.02); color: black; }
         .table { --bs-table-bg: transparent; color: white; }
+        .table thead th {
+        color: #ffffff;
+        font-family: 'Orbitron', sans-serif; /* Opcional: para que combine con el título */
+        letter-spacing: 1px;
+        border-bottom: 2px solid #00eaff; /* Opcional: una línea neón debajo */
+}
     </style>
 </head>
 <body class="py-5">
