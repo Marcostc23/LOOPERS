@@ -94,8 +94,8 @@ $result_vinilos = $conexion->query($sql_v);
 
 $f_ciudad      = $_GET['f_ciudad'] ?? '';
 $f_vinilo      = $_GET['f_vinilo'] ?? '';
-$sql_op        = "SELECT o.*, v.nombre AS vinilo_nombre FROM opiniones o 
-                  JOIN vinilos v ON o.vinilo_id = v.id WHERE 1=1";
+$sql_op        = "SELECT o.*, COALESCE(v.nombre, '[Vinilo eliminado]') AS vinilo_nombre FROM opiniones o 
+                  LEFT JOIN vinilos v ON o.vinilo_id = v.id WHERE 1=1";
 if ($f_ciudad != '') $sql_op .= " AND o.ciudad LIKE '%" . $conexion->real_escape_string($f_ciudad) . "%'";
 if ($f_vinilo != '') $sql_op .= " AND v.nombre LIKE '%" . $conexion->real_escape_string($f_vinilo) . "%'";
 $sql_op       .= " ORDER BY o.created_at DESC";
