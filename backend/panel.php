@@ -10,13 +10,10 @@ if (!isset($_SESSION['usuario'])) {
 $error_msg   = '';
 $success_msg = '';
 
-define('IMGS_DIR',     __DIR__ . '/../frontend/imgs/');
-define('IMGS_URL',     '/frontend/imgs/');
+define('IMGS_DIR',     __DIR__ . '/imgs/');
+define('IMGS_URL',     '/backend/imgs/');
 define('IMGS_DEFAULT', '/frontend/imgs/vinilo1.png');
 
-// ✅ FIX DEFINITIVO: sin file_exists(), construimos la URL directamente.
-// Si el archivo no existe en disco, el navegador lo gestiona con onerror.
-// Compatible con "nombre.jpg" y "../frontend/imgs/nombre.jpg"
 function urlImagen($foto) {
     if (empty($foto)) return IMGS_DEFAULT;
     $nombre = basename(str_replace('\\', '/', $foto));
@@ -28,6 +25,21 @@ function urlImagen($foto) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
 
     if ($_POST['accion'] == 'añadir') {
+
+        // ==========================================
+        // TEST TEMPORAL - bórralo cuando funcione
+        // ==========================================
+        $debug = [
+            'IMGS_DIR'   => IMGS_DIR,
+            'dir_existe' => is_dir(IMGS_DIR) ? 'SÍ' : 'NO',
+            'escribible' => is_writable(IMGS_DIR) ? 'SÍ' : 'NO',
+            'file_error' => $_FILES['foto']['error'] ?? 'no hay archivo',
+            'tmp_name'   => $_FILES['foto']['tmp_name'] ?? 'vacío',
+            'file_size'  => $_FILES['foto']['size'] ?? 0,
+        ];
+        die('<pre style="background:#111;color:#0f0;padding:20px;font-size:14px;">' . print_r($debug, true) . '</pre>');
+        // ==========================================
+
         $autor       = $conexion->real_escape_string($_POST['autor']);
         $nombre      = $conexion->real_escape_string($_POST['nombre']);
         $descripcion = $conexion->real_escape_string($_POST['descripcion']);
@@ -128,7 +140,6 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; }
 
-        /* SIDEBAR */
         .sidebar {
             width: 220px; min-height: 100vh; background: var(--surface);
             border-right: 1px solid var(--border); display: flex; flex-direction: column;
@@ -149,22 +160,18 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
         .logout-btn:hover { background: rgba(239,68,68,.1); }
         .logout-btn svg { width: 17px; height: 17px; }
 
-        /* MAIN */
         .main { margin-left: 220px; padding: 32px; flex: 1; max-width: calc(100% - 220px); }
 
-        /* STATS */
         .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 28px; }
         .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
         .stat-label { font-size: .72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
         .stat-val { font-size: 1.9rem; font-weight: 700; color: var(--gold); line-height: 1; }
         .stat-sub { font-size: .72rem; color: var(--muted); margin-top: 5px; }
 
-        /* CARD */
         .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 24px; }
         .card-head { font-size: .95rem; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
         .card-head svg { color: var(--gold); }
 
-        /* FORM */
         .form-label { font-size: .78rem; color: var(--muted); font-weight: 500; margin-bottom: 5px; display: block; }
         .form-control {
             background: var(--surface2) !important; border: 1px solid var(--border) !important;
@@ -174,7 +181,6 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
         .form-control:focus { border-color: var(--gold) !important; box-shadow: 0 0 0 3px rgba(245,197,24,.1) !important; outline: none !important; }
         .form-control::placeholder { color: var(--muted) !important; }
 
-        /* BUTTONS */
         .btn-gold { background: var(--gold); color: #0a0f1a; border: none; border-radius: 8px; padding: 9px 20px; font-weight: 600; font-size: .85rem; cursor: pointer; font-family: inherit; transition: background .2s; }
         .btn-gold:hover { background: #e6b800; }
         .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 9px 16px; font-size: .85rem; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; transition: all .2s; }
@@ -187,7 +193,6 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
         .btn-del-sm { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3); color: var(--danger); border-radius: 6px; padding: 5px 14px; font-size: .78rem; cursor: pointer; font-family: inherit; transition: background .2s; }
         .btn-del-sm:hover { background: rgba(239,68,68,.22); }
 
-        /* VINYL GRID */
         .vinyl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px,1fr)); gap: 14px; }
         .vcard { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color .2s, transform .2s; }
         .vcard:hover { border-color: rgba(245,197,24,.35); transform: translateY(-2px); }
@@ -204,27 +209,22 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
         .vactions { display: flex; gap: 6px; }
         .vactions form { flex: 1; }
 
-        /* SEARCH */
         .search-bar { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
         .search-bar .form-control { max-width: 280px; }
 
-        /* TABLE */
         .tbl { width: 100%; border-collapse: collapse; font-size: .82rem; }
         .tbl thead th { color: var(--muted); font-weight: 500; font-size: .72rem; text-transform: uppercase; letter-spacing: .5px; padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: left; }
         .tbl tbody td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         .tbl tbody tr:last-child td { border-bottom: none; }
         .tbl tbody tr:hover td { background: rgba(255,255,255,.02); }
 
-        /* ALERTS */
         .alert { border-radius: 10px; padding: 12px 16px; font-size: .85rem; margin-bottom: 20px; }
         .alert-err { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3); color: #fca5a5; }
         .alert-ok  { background: rgba(34,197,94,.1);  border: 1px solid rgba(34,197,94,.3);  color: #86efac; }
 
-        /* SECTIONS */
         .section { display: none; }
         .section.active { display: block; }
 
-        /* FILTER ROW */
         .filter-row { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
         .filter-row .form-control { max-width: 220px; }
     </style>
@@ -233,7 +233,6 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
 
 <aside class="sidebar">
     <div class="logo">LOOPERS</div>
-
     <button class="nav-btn active" onclick="showSec('vinilos',this)">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
         Vinilos
@@ -242,7 +241,6 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Opiniones
     </button>
-
     <div class="sidebar-footer">
         <div class="admin-pill">
             <strong><?= htmlspecialchars($_SESSION['usuario']) ?></strong>
@@ -264,7 +262,6 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
         <div class="alert alert-ok">✅ <?= htmlspecialchars($success_msg) ?></div>
     <?php endif; ?>
 
-    <!-- STATS -->
     <div class="stats">
         <div class="stat">
             <div class="stat-label">Total vinilos</div>
@@ -285,7 +282,6 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
 
     <!-- VINILOS -->
     <div id="sec-vinilos" class="section active">
-
         <div class="card">
             <div class="card-head">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
@@ -387,9 +383,7 @@ $total_opiniones = $conexion->query("SELECT COUNT(*) as c FROM opiniones")->fetc
             <div style="overflow-x:auto;">
                 <table class="tbl">
                     <thead>
-                        <tr>
-                            <th>Vinilo</th><th>Cliente</th><th>Ciudad</th><th>Comentario</th><th>Acción</th>
-                        </tr>
+                        <tr><th>Vinilo</th><th>Cliente</th><th>Ciudad</th><th>Comentario</th><th>Acción</th></tr>
                     </thead>
                     <tbody>
                         <?php while ($op = $res_opiniones->fetch_assoc()): ?>
@@ -424,7 +418,6 @@ function showSec(name, btn) {
     document.getElementById('sec-' + name).classList.add('active');
     btn.classList.add('active');
 }
-// Restaurar sección si venimos de filtro de opiniones
 const p = new URLSearchParams(window.location.search);
 if (p.get('seccion') === 'opiniones' || p.get('f_ciudad') || p.get('f_vinilo')) {
     document.querySelectorAll('.nav-btn')[1].click();
