@@ -93,7 +93,7 @@ $total_final = 0;
                                 $subtotal = $item['precio'] * $item['cantidad'];
                                 $total_final += $subtotal;
                             ?>
-                            <tr style="border-bottom: 1px solid #1a1a1a;">
+                            <tr style="border-bottom: 1px solid #ffffff;">
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <img src="<?php echo $item['foto']; ?>" class="product-img me-3">
