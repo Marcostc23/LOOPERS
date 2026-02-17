@@ -79,41 +79,49 @@ $total_final = 0;
                     </div>
                 <?php else: ?>
                     <table class="table align-middle">
-                        <thead>
-                            <tr class="text-white small">
-                                <th>DISCO</th>
-                                <th>PRECIO</th>
-                                <th>CANT.</th>
-                                <th>TOTAL</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($_SESSION['carrito'] as $id => $item): 
-                                $subtotal = $item['precio'] * $item['cantidad'];
-                                $total_final += $subtotal;
-                            ?>
-                            <tr style="border-bottom: 1px solid #ffffff;">
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="<?php echo $item['foto']; ?>" class="product-img me-3">
-                                        <span class="fw-bold"><?php echo htmlspecialchars($item['nombre']); ?></span>
-                                    </div>
-                                </td>
-                                <td><?php echo number_format($item['precio'], 2); ?>€</td>
-                                <td>x<?php echo $item['cantidad']; ?></td>
-                                <td class="text-info"><?php echo number_format($subtotal, 2); ?>€</td>
-                                <td>
-                                    <form method="POST">
-                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                                        <input type="hidden" name="accion" value="eliminar">
-                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+    <thead>
+        <tr class="small" style="color: #00eaff;"> 
+            <th>DISCO</th>
+            <th>PRECIO</th>
+            <th>CANT.</th>
+            <th>TOTAL</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($_SESSION['carrito'] as $id => $item): 
+            $subtotal = $item['precio'] * $item['cantidad'];
+            $total_final += $subtotal;
+        ?>
+        <tr style="border-bottom: 1px solid #222;">
+            <td>
+                <div class="d-flex align-items-center">
+                    <img src="<?php echo $item['foto']; ?>" class="product-img me-3">
+                    <span class="fw-bold" style="color: #ffffff;">
+                        <?php echo htmlspecialchars($item['nombre']); ?>
+                    </span>
+                </div>
+            </td>
+            <td style="color: #00eaff;">
+                <?php echo number_format($item['precio'], 2); ?>€
+            </td>
+            <td style="color: #00eaff;">
+                x<?php echo $item['cantidad']; ?>
+            </td>
+            <td class="text-info fw-bold">
+                <?php echo number_format($subtotal, 2); ?>€
+            </td>
+            <td>
+                <form method="POST">
+                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                    <input type="hidden" name="accion" value="eliminar">
+                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+                </form>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
                 <?php endif; ?>
             </div>
         </div>
